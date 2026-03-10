@@ -1,7 +1,7 @@
 package carte;
 
 public enum Type {
-	FEU("Feu rouge","Feu vert","Prioritaire"),
+	FEU("Feu Rouge","Feu Vert","Prioritaire"),
 	ESSENCE("Panne d'essence","Essence","Citerne"),
 	CREVAISON("Crevaison","Roue de secours","Increvable"),
 	ACCIDENT("Accident","Reparation","As du volant");

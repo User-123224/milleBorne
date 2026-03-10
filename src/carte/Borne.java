@@ -8,7 +8,7 @@ public class Borne extends Carte {
 	}
 	@Override
 	public String toString() {
-		String carte = km + " km";
+		String carte = km + "KM";
 		return carte;
 	}
 }
