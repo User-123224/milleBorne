@@ -53,14 +53,16 @@ public class JeuDeCartes {
 	}
 	
 	public Carte[] donnerCartes() {
-		int nbCarte = 0;
-		for(Configuration c : config ) {
-			nbCarte++;
-		}
-		Carte[] cartes = new Carte[nbCarte];
-		for(int i = 0; i < nbCarte; i++) {
-			for(int j = config[i].getNbExemplaires(); j > 0; j--) {
-				cartes[i] = config[i].getCarte();
+//		int nbCarte = 0;
+//		for(Configuration c : config ) {
+//			nbCarte++;
+//		}
+		Carte[] cartes = new Carte[106];
+		int index = 0;
+		for(int i = 0; i < 19; i++) {
+			for(int j = 0; j < config[i].getNbExemplaires(); j++) {
+				cartes[index] = config[i].getCarte();
+				index++;
 			}
 		}
 		return cartes;

@@ -11,9 +11,8 @@ public class Sabot implements Iterable<Carte>{
 	private int nbCartes = 106;
 	private int nbModif = 0;
 	
-	public Sabot(Carte[] cartes, int nbCartes) {
-		this.cartes = cartes;
-		this.nbCartes = nbCartes;
+	public Sabot(Carte[] cartes) {
+		this.cartes = cartes;;
 	}
 
 	public boolean estVide() {
@@ -63,10 +62,12 @@ public class Sabot implements Iterable<Carte>{
 					throw new ConcurrentModificationException();
 				}
 				for(int i = dernierRenvoye; i < nbCartes-1; i++) {
+//					System.out.println(i + " et " + nbCartes);
 					cartes[i] = cartes[i+1];
 				}
 				cartes[nbCartes-1] = null;
 				nbCartes--;
+				iterateur--;
 				dernierRenvoye = -1;
 				nextEffectue = false;
 				nbModif++;
@@ -77,11 +78,12 @@ public class Sabot implements Iterable<Carte>{
 	
 	public Carte piocher() {
 		if(estVide()) {
-			return null;
+			throw new NoSuchElementException();
 		}
 		Iterator<Carte> iterateur = this.iterator();
 		Carte premiereCarte = iterateur.next();
 		iterateur.remove();
+//		System.out.println("il reste en " + nbCartes);
 		return premiereCarte;
 	}
 }
