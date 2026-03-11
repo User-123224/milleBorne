@@ -45,7 +45,7 @@ public class JeuDeCartes {
 	public String afficherJeuDeCartes() {
 		StringBuilder jeu = new StringBuilder("JEU :\n");
 		int nbTypeCarte = 0;
-		for(Configuration c : config ) {
+		for(Configuration c : config) {
 			nbTypeCarte++;
 		}
 		for(int i = 0; i < nbTypeCarte; i++) {
