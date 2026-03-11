@@ -1,9 +1,7 @@
 package testsFonctionnels;
 
-//import carte.Botte;
 import carte.Carte;
 import carte.JeuDeCartes;
-//import carte.Type;
 import jeu.Sabot;
 import java.util.Iterator;
 
@@ -27,6 +25,5 @@ public class TestSabot {
 			iterateur.remove();
 			//sabot2.piocher();
 		}
-		//System.out.println("Le sabot 2 est vide ? " + sabot2.estVide());
 	}
 }

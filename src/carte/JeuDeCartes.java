@@ -1,7 +1,5 @@
 package carte;
 
-//import java.util.ArrayList;
-
 public class JeuDeCartes {
 	
 	private class Configuration{
@@ -45,21 +43,30 @@ public class JeuDeCartes {
 	
 	
 	public String afficherJeuDeCartes() {
-		String jeu = "JEU :\n";
-		for(int i = 0; i < 19; i++) {
-			jeu += Integer.toString(config[i].getNbExemplaires()) + " " + config[i].getCarte().toString() + "\n";
+		StringBuilder jeu = new StringBuilder("JEU :\n");
+		int nbTypeCarte = 0;
+		for(Configuration c : config ) {
+			nbTypeCarte++;
 		}
-		return jeu;
+		for(int i = 0; i < nbTypeCarte; i++) {
+			jeu.append(Integer.toString(config[i].getNbExemplaires()));
+			jeu.append(" ");
+			jeu.append(config[i].getCarte().toString());
+			jeu.append("\n");
+		}
+		return jeu.toString();
 	}
 	
 	public Carte[] donnerCartes() {
-//		int nbCarte = 0;
-//		for(Configuration c : config ) {
-//			nbCarte++;
-//		}
-		Carte[] cartes = new Carte[106];
+		int nbTypeCarte = 0;
+		int nbCarteTotal = 0;
+		for(Configuration c : config ) {
+			nbTypeCarte++;
+			nbCarteTotal += c.getNbExemplaires();
+		}
+		Carte[] cartes = new Carte[nbCarteTotal];
 		int index = 0;
-		for(int i = 0; i < 19; i++) {
+		for(int i = 0; i < nbTypeCarte; i++) {
 			for(int j = 0; j < config[i].getNbExemplaires(); j++) {
 				cartes[index] = config[i].getCarte();
 				index++;

@@ -9,6 +9,6 @@ public class Parade extends Bataille {
 	@Override
 	public String toString() {
 		Type type = getType();
-		return type.getParade().toString();
+		return type.getParade();
 	}
 }

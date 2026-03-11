@@ -11,8 +11,49 @@ public class Sabot implements Iterable<Carte>{
 	private int nbCartes = 106;
 	private int nbModif = 0;
 	
+	private class Iterateur implements Iterator<Carte> {
+		private int index = 0;
+		private boolean nextEffectue = false;
+		private int nbModifAttendu = nbModif;
+
+		public carte.Carte next() { 
+			if (nbModif != nbModifAttendu) {
+				throw new ConcurrentModificationException();
+			}
+			if(!hasNext()) {
+				throw new NoSuchElementException();
+			}
+			nextEffectue = true;
+			index++;
+			return cartes[index];
+		}
+		
+		public boolean hasNext() {
+			return index < 106;
+		}
+		
+		@Override
+		public void remove() {
+			if(!nextEffectue) {
+				throw new IllegalStateException();
+			} 
+			if (nbModif != nbModifAttendu) {
+				throw new ConcurrentModificationException();
+			}
+			for(int i = index-1; i < nbCartes-1; i++) {
+				cartes[i] = cartes[i+1];
+			}
+			cartes[nbCartes-1] = null;
+			nbCartes--;
+			index--;
+			nextEffectue = false;
+			nbModif++;
+			nbModifAttendu++;
+		}
+	}
+	
 	public Sabot(Carte[] cartes) {
-		this.cartes = cartes;;
+		this.cartes = cartes;
 	}
 
 	public boolean estVide() {
@@ -30,51 +71,50 @@ public class Sabot implements Iterable<Carte>{
 	
 	@Override
 	public Iterator<Carte> iterator(){
-		return new Iterator<Carte>() {
-			private int iterateur = 0;
-			private int dernierRenvoye = -1;
-			private boolean nextEffectue = false;
-			private int nbModifAttendu = nbModif;
-
-			@Override
-			public Carte next() { 
-				if (nbModif != nbModifAttendu) {
-					throw new ConcurrentModificationException();
-				}
-				if(!hasNext()) {
-					throw new NoSuchElementException();
-				}
-				nextEffectue = true;
-				dernierRenvoye = iterateur;
-				return cartes[iterateur++];
-			}
-			
-			@Override
-			public boolean hasNext() {
-				return iterateur < 106;
-			}
-			
-			@Override
-			public void remove() {
-				if(!nextEffectue) {
-					throw new IllegalStateException();
-				} if (nbModif != nbModifAttendu) {
-					throw new ConcurrentModificationException();
-				}
-				for(int i = dernierRenvoye; i < nbCartes-1; i++) {
-//					System.out.println(i + " et " + nbCartes);
-					cartes[i] = cartes[i+1];
-				}
-				cartes[nbCartes-1] = null;
-				nbCartes--;
-				iterateur--;
-				dernierRenvoye = -1;
-				nextEffectue = false;
-				nbModif++;
-				nbModifAttendu++;
-			}
-		};
+		return new Iterateur();
 	}
+//			private int iterateur = 0;
+//			private int dernierRenvoye = -1;
+//			private boolean nextEffectue = false;
+//			private int nbModifAttendu = nbModif;
+//
+//			@Override
+//			public Carte next() { 
+//				if (nbModif != nbModifAttendu) {
+//					throw new ConcurrentModificationException();
+//				}
+//				if(!hasNext()) {
+//					throw new NoSuchElementException();
+//				}
+//				nextEffectue = true;
+//				dernierRenvoye = iterateur;
+//				return cartes[iterateur++];
+//			}
+//			
+//			@Override
+//			public boolean hasNext() {
+//				return iterateur < 106;
+//			}
+//			
+//			@Override
+//			public void remove() {
+//				if(!nextEffectue) {
+//					throw new IllegalStateException();
+//				} if (nbModif != nbModifAttendu) {
+//					throw new ConcurrentModificationException();
+//				}
+//				for(int i = dernierRenvoye; i < nbCartes-1; i++) {
+//					System.out.println(i + " et " + nbCartes);
+//					cartes[i] = cartes[i+1];
+//				}
+//				cartes[nbCartes-1] = null;
+//				nbCartes--;
+//				iterateur--;
+//				dernierRenvoye = -1;
+//				nextEffectue = false;
+//				nbModif++;
+//				nbModifAttendu++;
+//			}
 	
 	public Carte piocher() {
 		if(estVide()) {
@@ -83,7 +123,6 @@ public class Sabot implements Iterable<Carte>{
 		Iterator<Carte> iterateur = this.iterator();
 		Carte premiereCarte = iterateur.next();
 		iterateur.remove();
-//		System.out.println("il reste en " + nbCartes);
 		return premiereCarte;
 	}
 }

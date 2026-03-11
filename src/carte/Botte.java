@@ -9,6 +9,6 @@ public class Botte extends Probleme {
 	@Override
 	public String toString() {
 		Type type = getType();
-		return type.getBotte().toString();
+		return type.getBotte();
 	}
 }
