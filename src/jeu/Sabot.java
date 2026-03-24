@@ -7,8 +7,8 @@ import java.util.NoSuchElementException;
 import carte.Carte;
 
 public class Sabot implements Iterable<Carte>{
-	private Carte[] cartes = new Carte[106];
-	private int nbCartes = 106;
+	private Carte[] cartes;
+	private int nbCartes;
 	private int nbModif = 0;
 	
 	private class Iterateur implements Iterator<Carte> {
@@ -24,12 +24,11 @@ public class Sabot implements Iterable<Carte>{
 				throw new NoSuchElementException();
 			}
 			nextEffectue = true;
-			index++;
-			return cartes[index];
+			return cartes[index++];
 		}
 		
 		public boolean hasNext() {
-			return index < 106;
+			return index < nbCartes;
 		}
 		
 		@Override
@@ -54,6 +53,12 @@ public class Sabot implements Iterable<Carte>{
 	
 	public Sabot(Carte[] cartes) {
 		this.cartes = cartes;
+		nbCartes = 0;
+		for(Carte c : cartes) {
+			if(c != null) {
+				nbCartes++;
+			}
+		}
 	}
 
 	public boolean estVide() {
@@ -61,9 +66,10 @@ public class Sabot implements Iterable<Carte>{
 	}
 	
 	public void ajouterCarte(Carte nouvCarte) {
-		if (nbCartes < 106) {
+		if (nbCartes < cartes.length) {
 			cartes[nbCartes] = nouvCarte;
 			nbModif++;
+			nbCartes++;
 		} else {
 			throw new NoSuchElementException();
 		}
