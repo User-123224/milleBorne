@@ -74,7 +74,28 @@ public class JeuDeCartes {
 		}
 		return cartes;
 	}
+	
+	public boolean checkCount() {
+		Carte[] cartesAVerifier = donnerCartes();
+		int[] compte = new int[config.length];
+		for(int i = 0; i < config.length; i++) {
+			int j = 0;
+			for(; j < cartesAVerifier.length; j++) {
+				if(cartesAVerifier[j].equals(config[i].getCarte())) {
+					compte[i]++;
+				}
+			}
+		}
+		for(int i = 0; i < config.length; i++) {
+			if(compte[i] != config[i].getNbExemplaires()) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
+
+
 
 //Borne 25			Roue de secours		Citerne
 //Borne 50			Réparation			Increvable
@@ -84,3 +105,18 @@ public class JeuDeCartes {
 //Feu vert			Crevaison
 //Fin de limite		Accident
 //Essence			Prioritaire
+
+
+//Carte[] cartesAVerifier = donnerCartes();
+//for(Configuration c : config) {
+//	int compte = 0;
+//	for(Carte carte : cartesAVerifier) {
+//		if(carte.equals(c.getClass())) {
+//			compte++;
+//		}
+//	}
+//	if(compte != c.getNbExemplaires()) {
+//		return false;
+//	}
+//}
+//return true;

@@ -11,4 +11,12 @@ public class Borne extends Carte {
 		String carte = km + "KM";
 		return carte;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Borne borne) {
+			return this.km == borne.km;
+		}
+		return false;
+	}
 }
