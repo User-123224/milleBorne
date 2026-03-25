@@ -56,26 +56,18 @@ public class JeuDeCartes {
 		return cartes;
 	}
 
-	//bug : ne compte pas les limites et les fins de limites -> probleme avec le equals de Carte
 	public boolean checkCount() {
 		Carte[] cartesAVerifier = donnerCartes();
-		//System.out.println("taille config = " + config.length + " ; taille cartesAVerifier = " + cartesAVerifier.length);
 		int[] compte = new int[config.length];
 		for (int i = 0; i < config.length; i++) {
 			int j = 0;
 			for (; j < cartesAVerifier.length; j++) {
-				//System.out.println(config[i].getCarte() + " " + cartesAVerifier[j]);
 				if (cartesAVerifier[j].equals(config[i].getCarte())) {
-					//System.out.println(compte[i]);
 					compte[i]++;
 				}
 			}
 		}
-		for(int i = 0; i < compte.length; i++) {
-			System.out.println(compte[i] + " ");
-		}
 		for (int i = 0; i < config.length; i++) {
-			//System.out.println("nombre de cartes " + compte[i] + " " + config[i].getNbExemplaires());
 			if (compte[i] != config[i].getNbExemplaires()) {
 				return false;
 			}
