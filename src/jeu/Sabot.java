@@ -17,14 +17,18 @@ public class Sabot implements Iterable<Carte>{
 		private int nbModifAttendu = nbModif;
 
 		public carte.Carte next() { 
-			if (nbModif != nbModifAttendu) {
-				throw new ConcurrentModificationException();
-			}
+			verifierConcurrence();
 			if(!hasNext()) {
 				throw new NoSuchElementException();
 			}
 			nextEffectue = true;
 			return cartes[index++];
+		}
+
+		private void verifierConcurrence() {
+			if (nbModif != nbModifAttendu) {
+				throw new ConcurrentModificationException();
+			}
 		}
 		
 		public boolean hasNext() {
@@ -36,9 +40,7 @@ public class Sabot implements Iterable<Carte>{
 			if(!nextEffectue) {
 				throw new IllegalStateException();
 			} 
-			if (nbModif != nbModifAttendu) {
-				throw new ConcurrentModificationException();
-			}
+			verifierConcurrence();
 			for(int i = index-1; i < nbCartes-1; i++) {
 				cartes[i] = cartes[i+1];
 			}

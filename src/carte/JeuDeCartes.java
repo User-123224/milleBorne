@@ -1,8 +1,18 @@
 package carte;
 
 public class JeuDeCartes {
-	
-	private class Configuration{
+	private Configuration[] config = { new Configuration(new Borne(25), 10), new Configuration(new Borne(50), 10),
+			new Configuration(new Borne(75), 10), new Configuration(new Borne(100), 12),
+			new Configuration(new Borne(200), 4), new Configuration(new Parade(Type.FEU), 14),
+			new Configuration(new FinLimite(), 6), new Configuration(new Parade(Type.ESSENCE), 6),
+			new Configuration(new Parade(Type.CREVAISON), 6), new Configuration(new Parade(Type.ACCIDENT), 6),
+			new Configuration(new Attaque(Type.FEU), 5), new Configuration(new DebutLimite(), 4),
+			new Configuration(new Attaque(Type.ESSENCE), 3), new Configuration(new Attaque(Type.CREVAISON), 3),
+			new Configuration(new Attaque(Type.ACCIDENT), 3), new Configuration(new Botte(Type.FEU), 1),
+			new Configuration(new Botte(Type.ESSENCE), 1), new Configuration(new Botte(Type.CREVAISON), 1),
+			new Configuration(new Botte(Type.ACCIDENT), 1), };
+
+	private static class Configuration {
 		private int nbExemplaires;
 		private Carte carte;
 
@@ -19,83 +29,60 @@ public class JeuDeCartes {
 			return carte;
 		}
 	}
-	private Configuration[] config = {
-			new Configuration(new Borne(25),10),
-			new Configuration(new Borne(50),10),
-			new Configuration(new Borne(75),10),
-			new Configuration(new Borne(100),12),
-			new Configuration(new Borne(200),4),
-			new Configuration(new Parade(Type.FEU),14),
-			new Configuration(new FinLimite(),6),
-			new Configuration(new Parade(Type.ESSENCE),6),
-			new Configuration(new Parade(Type.CREVAISON),6),
-			new Configuration(new Parade(Type.ACCIDENT),6),
-			new Configuration(new Attaque(Type.FEU),5),
-			new Configuration(new DebutLimite(),4),
-			new Configuration(new Attaque(Type.ESSENCE),3),
-			new Configuration(new Attaque(Type.CREVAISON),3),
-			new Configuration(new Attaque(Type.ACCIDENT),3),
-			new Configuration(new Botte(Type.FEU),1),
-			new Configuration(new Botte(Type.ESSENCE),1),
-			new Configuration(new Botte(Type.CREVAISON),1),
-			new Configuration(new Botte(Type.ACCIDENT),1),
-	};
-	
-	
+
 	public String afficherJeuDeCartes() {
 		StringBuilder jeu = new StringBuilder("JEU :\n");
-		int nbTypeCarte = 0;
-		for(Configuration c : config) {
-			nbTypeCarte++;
-		}
-		for(int i = 0; i < nbTypeCarte; i++) {
+		for (int i = 0; i < config.length; i++) {
 			jeu.append(Integer.toString(config[i].getNbExemplaires()));
 			jeu.append(" ");
-			jeu.append(config[i].getCarte().toString());
+			jeu.append(config[i].getCarte());
 			jeu.append("\n");
 		}
 		return jeu.toString();
 	}
-	
+
 	public Carte[] donnerCartes() {
-		int nbTypeCarte = 0;
 		int nbCarteTotal = 0;
-		for(Configuration c : config ) {
-			nbTypeCarte++;
+		for (Configuration c : config) {
 			nbCarteTotal += c.getNbExemplaires();
 		}
 		Carte[] cartes = new Carte[nbCarteTotal];
-		int index = 0;
-		for(int i = 0; i < nbTypeCarte; i++) {
-			for(int j = 0; j < config[i].getNbExemplaires(); j++) {
+		for (int i = 0, index = 0; i < config.length; i++) {
+			for (int j = 0; j < config[i].getNbExemplaires(); j++) {
 				cartes[index] = config[i].getCarte();
 				index++;
 			}
 		}
 		return cartes;
 	}
-	
+
+	//bug : ne compte pas les limites et les fins de limites -> probleme avec le equals de Carte
 	public boolean checkCount() {
 		Carte[] cartesAVerifier = donnerCartes();
+		//System.out.println("taille config = " + config.length + " ; taille cartesAVerifier = " + cartesAVerifier.length);
 		int[] compte = new int[config.length];
-		for(int i = 0; i < config.length; i++) {
+		for (int i = 0; i < config.length; i++) {
 			int j = 0;
-			for(; j < cartesAVerifier.length; j++) {
-				if(cartesAVerifier[j].equals(config[i].getCarte())) {
+			for (; j < cartesAVerifier.length; j++) {
+				//System.out.println(config[i].getCarte() + " " + cartesAVerifier[j]);
+				if (cartesAVerifier[j].equals(config[i].getCarte())) {
+					//System.out.println(compte[i]);
 					compte[i]++;
 				}
 			}
 		}
-		for(int i = 0; i < config.length; i++) {
-			if(compte[i] != config[i].getNbExemplaires()) {
+		for(int i = 0; i < compte.length; i++) {
+			System.out.println(compte[i] + " ");
+		}
+		for (int i = 0; i < config.length; i++) {
+			//System.out.println("nombre de cartes " + compte[i] + " " + config[i].getNbExemplaires());
+			if (compte[i] != config[i].getNbExemplaires()) {
 				return false;
 			}
 		}
 		return true;
 	}
 }
-
-
 
 //Borne 25			Roue de secours		Citerne
 //Borne 50			Réparation			Increvable
@@ -105,18 +92,3 @@ public class JeuDeCartes {
 //Feu vert			Crevaison
 //Fin de limite		Accident
 //Essence			Prioritaire
-
-
-//Carte[] cartesAVerifier = donnerCartes();
-//for(Configuration c : config) {
-//	int compte = 0;
-//	for(Carte carte : cartesAVerifier) {
-//		if(carte.equals(c.getClass())) {
-//			compte++;
-//		}
-//	}
-//	if(compte != c.getNbExemplaires()) {
-//		return false;
-//	}
-//}
-//return true;
