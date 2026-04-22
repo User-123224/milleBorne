@@ -7,8 +7,6 @@ import carte.Borne;
 import carte.Carte;
 import carte.FinLimite;
 import carte.Limite;
-import carte.Probleme;
-import carte.Type;
 
 public class ZoneDeJeu {
 	private List<Carte> limites = new ArrayList<>();

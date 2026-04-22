@@ -1,6 +1,5 @@
 package jeu;
 
-import carte.Borne;
 import carte.Carte;
 
 public class Joueur {
@@ -48,5 +47,10 @@ public class Joueur {
 	
 	public int donnerKmParcourus() {
 		return zone.donnerKmParcourus();
+	}
+	
+	
+	public void deposer(Carte carte) {
+		zone.deposer(carte);
 	}
 }
