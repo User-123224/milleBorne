@@ -3,13 +3,14 @@ package jeu;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import carte.Carte;
 
 public class MainJoueur implements Iterable<Carte>{
-	List<Carte> main = new ArrayList<>();
+	List<Carte> main = new LinkedList<>(); //remplacer main par LinkedList
 	private int nbModif = 0;
 	
 	private class Iterateur implements Iterator<Carte> {
@@ -69,13 +70,13 @@ public class MainJoueur implements Iterable<Carte>{
 	}
 	
 	public String toString() {
-		StringBuilder afficheMain = new StringBuilder("La main est composé de : ");
+		StringBuilder afficheMain = new StringBuilder("La main est composé des cartes :");
 		Iterator<Carte> iterateur = iterator();
 		while(iterateur.hasNext()) {
 			Carte carteCourante = iterateur.next();
+			afficheMain.append("\n");
 			afficheMain.append(" - ");
 			afficheMain.append(carteCourante);
-			afficheMain.append("\n");
 		}
 		return afficheMain.toString();
 	}

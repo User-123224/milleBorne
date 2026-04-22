@@ -31,6 +31,8 @@ public class GestionCartes {
 		liste.remove(indiceAleatoire);
 		return elementAleatoire;
 	}
+	
+	//manque extraire avec le listIterator
 
 private static <E> int countElement(ArrayList<E> liste) {
 	int nbElement = 0;
@@ -79,7 +81,7 @@ private static <E> int countElement(ArrayList<E> liste) {
 		return listeConsecutifs;
 	}
 	
-	public static <E> boolean verifierRassemblement(ArrayList<E> liste) {
+	public static <E> boolean verifierRassemblement(List<E> liste) {
 		for(ListIterator<E> iterateur1 = liste.listIterator(); iterateur1.hasNext(); ) {
 			E suivant = iterateur1.next();
 			if(iterateur1.hasNext() && !suivant.equals(liste.get(iterateur1.nextIndex()))) {
@@ -93,3 +95,7 @@ private static <E> int countElement(ArrayList<E> liste) {
 		return true;
 	}
 }
+
+
+//CORRECTION :
+//Reduire complexité pour verifierRassemblement et verifierMelange

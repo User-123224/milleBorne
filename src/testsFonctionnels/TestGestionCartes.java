@@ -1,6 +1,7 @@
 package testsFonctionnels;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import carte.Carte;
 import carte.JeuDeCartes;
@@ -10,9 +11,10 @@ public class TestGestionCartes {
 	public static void main(String[] args) {
 		JeuDeCartes jeu = new JeuDeCartes();
 		ArrayList<Carte> listeCarteNonMelangee = new ArrayList<>();
-		for (Carte carte : jeu.donnerCartes()) {
-			listeCarteNonMelangee.add(carte);
-		}
+		//for (Carte carte : jeu.donnerCartes()) {
+		//	listeCarteNonMelangee.add(carte);
+		//}
+		Collections.addAll(listeCarteNonMelangee, jeu.donnerCartes());
 		ArrayList<Carte> listeCartes = new ArrayList<>(listeCarteNonMelangee);
 		System.out.println(listeCartes);
 		listeCartes = (ArrayList<Carte>) GestionCartes.melanger(listeCartes);

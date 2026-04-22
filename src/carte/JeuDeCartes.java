@@ -76,6 +76,9 @@ public class JeuDeCartes {
 	}
 }
 
+//CORRECTION :
+//voir dans checkCount, pourquoi on a "int j = 0;" hors de la boucle ?
+
 //10 Borne 25			6 Roue de secours		1 Citerne
 //10 Borne 50			6 Réparation			1 Increvable
 //10 Borne 75			5 Feu rouge				1 As du volant
