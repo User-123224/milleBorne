@@ -76,11 +76,11 @@ public class JeuDeCartes {
 	}
 }
 
-//Borne 25			Roue de secours		Citerne
-//Borne 50			Réparation			Increvable
-//Borne 75			Feu rouge			As du volant
-//Borne 100			Limite 50
-//Borne 200			Panne d'essence
-//Feu vert			Crevaison
-//Fin de limite		Accident
-//Essence			Prioritaire
+//10 Borne 25			6 Roue de secours		1 Citerne
+//10 Borne 50			6 Réparation			1 Increvable
+//10 Borne 75			5 Feu rouge				1 As du volant
+//12 Borne 100			4 Limite 50
+// 4 Borne 200			3 Panne d'essence
+//14 Feu vert			3 Crevaison
+// 6 Fin de limite		3 Accident
+// 6 Essence			1 Prioritaire
