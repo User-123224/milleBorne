@@ -1,5 +1,6 @@
 package jeu;
 
+import carte.Borne;
 import carte.Carte;
 
 public class Joueur {
@@ -43,5 +44,9 @@ public class Joueur {
 		Carte carte = sabot.piocher();
 		main.prendre(carte);
 		return carte;
+	}
+	
+	public int donnerKmParcourus() {
+		return zone.donnerKmParcourus();
 	}
 }
